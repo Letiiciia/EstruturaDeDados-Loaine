@@ -4,7 +4,8 @@ import com.loiane.estruturadados.vetor.Lista;
 
 public class Exe01 {
 	public static void main(String[] args) {
-		Lista<Object> letters = new Lista<Object>(3);
+		Lista<String> letters = new Lista<String>(3);
+		
 		
 		letters.adiciona("A");
 		letters.adiciona("B");

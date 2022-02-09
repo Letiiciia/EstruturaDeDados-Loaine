@@ -10,33 +10,33 @@ public class Lista<T> {
 		this.elementos = (T[]) new Object[capacidade];
 		this.tamanho = 0;
 	}
-	
+
 	public Lista(int capacidade, Class<T> tipoClasse) {
 		this.elementos = (T[]) Array.newInstance(tipoClasse, capacidade);
 		this.tamanho = 0;
 	}
-	
+
 	public int tamanho() {
 		return this.tamanho;
 	}
-	
+
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		s.append("[");
-		
-		for(int i = 0; i < this.tamanho-1; i++) {
+
+		for (int i = 0; i < this.tamanho - 1; i++) {
 			s.append(elementos[i]);
 			s.append(", ");
 		}
-		
-		if(this.tamanho>0) {
-			s.append(elementos[this.tamanho-1]);
+
+		if (this.tamanho > 0) {
+			s.append(elementos[this.tamanho - 1]);
 		}
 		s.append("]");
-		
+
 		return s.toString();
 	}
-	
+
 //	public void adiciona(String elemento) {
 //		for(int i = 0; i  < this.elementos.length; i++) {
 //			if(this.elementos[i] == null) {
@@ -56,7 +56,7 @@ public class Lista<T> {
 //		}
 //
 //	}
-	
+
 	public boolean adiciona(T elemento) {
 		aumentaCapacidade();
 		if (this.tamanho < this.elementos.length) {
@@ -68,61 +68,87 @@ public class Lista<T> {
 		}
 
 	}
-	
+
 	public boolean adiciona(int posicao, T elemento) {
 		aumentaCapacidade();
-		if(!(posicao >= 0 && posicao < tamanho)) {
+		if (!(posicao >= 0 && posicao < tamanho)) {
 			throw new IllegalArgumentException("Posição inválida");
 		}
-		
-		for(int i = this.tamanho -1; i >= posicao; i--) {
-			this.elementos[i+1] = this.elementos[i];
+
+		for (int i = this.tamanho - 1; i >= posicao; i--) {
+			this.elementos[i + 1] = this.elementos[i];
 		}
 		this.elementos[posicao] = elemento;
 		this.tamanho++;
-		
+
 		return false;
 	}
-	
+
 	private void aumentaCapacidade() {
-		if(this.tamanho == this.elementos.length) {
-			T[] elementosNovos = (T[])new Object[this.elementos.length*2];
-			for(int i = 0; i < this.elementos.length; i++) {
+		if (this.tamanho == this.elementos.length) {
+			T[] elementosNovos = (T[]) new Object[this.elementos.length * 2];
+			for (int i = 0; i < this.elementos.length; i++) {
 				elementosNovos[i] = this.elementos[i];
-				
+
 			}
 			this.elementos = elementosNovos;
 		}
 	}
-	
+
 	public T busca(int posicao) {
-		if(!(posicao >= 0 && posicao < tamanho)) {
+		if (!(posicao >= 0 && posicao < tamanho)) {
 			throw new IllegalArgumentException("Posição inválida");
 		}
 		return elementos[posicao];
 	}
-	
+
 	public int busca(T elemento) {
-		for(int i = 0; i < this.tamanho; i++) {
-			if(this.elementos[i].equals(elemento)) {
+		for (int i = 0; i < this.tamanho; i++) {
+			if (this.elementos[i].equals(elemento)) {
 				return i;
 			}
 		}
 		return -1;
 	}
-	
+
 	public boolean contem(T elemento) {
 		return busca(elemento) > -1;
 	}
-	
-	
+
 	public void remove(int posicao) {
-		if(!(posicao >= 0 && posicao < tamanho)) {
+		if (!(posicao >= 0 && posicao < tamanho)) {
 			throw new IllegalArgumentException("Posição inválida");
 		}
-		for(int i = posicao; i < this.tamanho-1; i++) {
-			this.elementos[i] = this.elementos[i+1];
+		for (int i = posicao; i < this.tamanho - 1; i++) {
+			this.elementos[i] = this.elementos[i + 1];
 		}
 		this.tamanho--;
+	}
+
+	public void remove(T elemento) {
+		int elementoNecessario = busca(elemento);
+		if (elementoNecessario > -1) {
+			remove(elementoNecessario);
+		} else {
+			System.out.println("Elemento não encontrado");
+		}
+
+	}
+
+	public int ultimoIndice(T elemento) {
+		for (int i = this.tamanho - 1; i >= 0; i--) {
+			if (this.elementos[i].equals(elemento)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public T obtem(int posicao) {
+		return busca(posicao);
+	}
+
+	public T[] limpar() {
+		return this.elementos = (T[]) new Object[this.elementos.length];
 	}
 }
