@@ -1,9 +1,6 @@
 package com.loiane.estruturadados.vetor.labs;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.loiane.estruturadados.vetor.Lista;
 
 public class Exe02 {
 	public static void main(String[] args) {
